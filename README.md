@@ -1,4 +1,4 @@
-﻿# 鼠标卫士 2.0 · MouseGuard
+# 鼠标卫士 2.0 · MouseGuard
 
 原生 **WinUI 3 / Windows App SDK** 输入设备控制台，面向 Windows 11。
 NavigationView、Mica、Fluent 控件与系统字体，接近 Windows「设置」的原生观感，不使用 WebView 或网页外壳。
@@ -83,6 +83,18 @@ dist\MouseGuard-2.0.0-final3\  可直接运行的构建产物
 - 接收器热插拔检测通过设备变化通知和 5 秒兜底扫描完成。
 - 不安装驱动、不联网、不注入其他进程。
 - 当前版本：**2.0.0**。
+
+## 许可证
+
+Original MouseGuard source code is licensed under **GNU GPL version 3 only**
+(`GPL-3.0-only`). See [LICENSE](LICENSE).
+
+Copyright (C) 2026 tenkawamira.
+
+Third-party components (notably the Microsoft Windows App SDK and the .NET
+runtime) keep their own licenses and are not relicensed by GPL-3.0. See
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md), especially the note about
+self-contained binary distribution.
 
 
 
