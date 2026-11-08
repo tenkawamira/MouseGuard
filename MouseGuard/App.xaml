@@ -1,0 +1,22 @@
+<Application x:Class="MouseGuard.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:helpers="clr-namespace:MouseGuard.Helpers"
+             ShutdownMode="OnExplicitShutdown">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Shared.xaml" />
+                <ResourceDictionary Source="Themes/Dark.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <helpers:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+            <helpers:BoolToVisibilityConverter x:Key="InverseBoolToVisibility" Invert="True" />
+            <helpers:InverseBoolConverter x:Key="InverseBool" />
+            <helpers:NullToVisibilityConverter x:Key="NullToVisibility" />
+            <helpers:NullToVisibilityConverter x:Key="InverseNullToVisibility" Invert="True" />
+            <helpers:EmptyStringToVisibilityConverter x:Key="EmptyStringToVisibility" />
+            <helpers:EmptyStringToVisibilityConverter x:Key="InverseEmptyStringToVisibility" Invert="True" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

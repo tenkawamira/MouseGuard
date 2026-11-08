@@ -1,0 +1,23 @@
+# Build output
+**/bin/
+**/obj/
+dist/
+
+# Local toolchain / package cache
+.tools/
+
+# Test and temporary data
+.appdata*/
+.ziptest/
+.zipcheck/
+**/TestResults/
+*.log
+*.pdb
+*.user
+
+# OS / IDE
+.vs/
+.vscode/
+*.suo
+Thumbs.db
+.DS_Store

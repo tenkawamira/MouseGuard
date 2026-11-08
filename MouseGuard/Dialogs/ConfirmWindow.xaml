@@ -1,0 +1,35 @@
+<Window x:Class="MouseGuard.Dialogs.ConfirmWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Width="470" Height="280"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
+    <Border Margin="20" CornerRadius="18" Background="{DynamicResource AppBackgroundBrush}"
+            BorderBrush="{DynamicResource StrokeStrongBrush}" BorderThickness="1">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="30" ShadowDepth="10" Direction="270" Opacity="0.4" Color="#05070C" />
+        </Border.Effect>
+        <Grid Margin="22">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Border Width="34" Height="34" CornerRadius="10" Background="{DynamicResource WarningSoftBrush}">
+                    <TextBlock Text="&#xE7BA;" FontFamily="{StaticResource IconFontFamily}" FontSize="15"
+                               Foreground="{DynamicResource WarningBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <TextBlock x:Name="TitleText" Text="确认操作" FontSize="17" FontWeight="SemiBold" Margin="10,0,0,0" VerticalAlignment="Center" />
+            </StackPanel>
+            <TextBlock x:Name="MessageText" Grid.Row="1" Text="确定要继续吗？" Style="{StaticResource BodyTextStyle}"
+                       Margin="0,16,0,0" TextWrapping="Wrap" />
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Style="{StaticResource SecondaryButtonStyle}" Content="取消" Click="Cancel_Click" Height="36" MinWidth="74" />
+                <Button x:Name="ConfirmButton" Style="{StaticResource PrimaryButtonStyle}" Content="确认" Click="Confirm_Click"
+                        Height="36" MinWidth="84" Margin="8,0,0,0" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

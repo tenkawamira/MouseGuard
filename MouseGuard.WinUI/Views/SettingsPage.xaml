@@ -1,0 +1,114 @@
+<Page
+    x:Class="MouseGuard.WinUI.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="Transparent">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Padding="32,24,32,32" Spacing="14">
+            <StackPanel>
+                <TextBlock Text="设置" Style="{StaticResource PageTitleStyle}" />
+                <TextBlock Text="启动方式、权限与外观。" Style="{StaticResource PageSubtitleStyle}" Margin="0,4,0,0" />
+            </StackPanel>
+
+            <TextBlock Text="启动与驻留" Style="{StaticResource SectionHeaderStyle}" Margin="0,4,0,0" />
+            <Border Style="{StaticResource SettingsCardStyle}">
+                <StackPanel>
+                    <Grid Padding="0,4">
+                        <StackPanel>
+                            <TextBlock Text="开机自动启动" FontSize="13" />
+                            <TextBlock Text="登录后静默驻留系统托盘，不弹出主窗口" Style="{StaticResource CaptionStyle}" />
+                        </StackPanel>
+                        <ToggleSwitch HorizontalAlignment="Right" IsOn="{Binding LaunchAtStartup, Mode=TwoWay}" />
+                    </Grid>
+                    <TextBlock Text="{Binding AutoStartStatus}" Style="{StaticResource CaptionStyle}" Margin="0,2,0,8" />
+                    <Border Height="1" Background="{ThemeResource DividerStrokeColorDefaultBrush}" Margin="0,4" />
+                    <Grid Padding="0,10,0,4">
+                        <StackPanel>
+                            <TextBlock Text="手动启动时也隐藏到托盘" FontSize="13" />
+                            <TextBlock Text="开启后双击程序也直接驻留托盘" Style="{StaticResource CaptionStyle}" />
+                        </StackPanel>
+                        <ToggleSwitch HorizontalAlignment="Right" IsOn="{Binding StartMinimized, Mode=TwoWay}" />
+                    </Grid>
+                    <Border Height="1" Background="{ThemeResource DividerStrokeColorDefaultBrush}" Margin="0,4" />
+                    <Grid Padding="0,10,0,4">
+                        <StackPanel>
+                            <TextBlock Text="关闭窗口时隐藏到托盘" FontSize="13" />
+                            <TextBlock Text="关闭窗口不退出，快捷键继续生效" Style="{StaticResource CaptionStyle}" />
+                        </StackPanel>
+                        <ToggleSwitch HorizontalAlignment="Right" IsOn="{Binding MinimizeToTray, Mode=TwoWay}" />
+                    </Grid>
+                    <Border Height="1" Background="{ThemeResource DividerStrokeColorDefaultBrush}" Margin="0,4" />
+                    <Grid Padding="0,10,0,4">
+                        <StackPanel>
+                            <TextBlock Text="接收器重新插回时自动释放" FontSize="13" />
+                            <TextBlock Text="USB 接收器拔出再插上后，不保留该设备的接管状态" Style="{StaticResource CaptionStyle}" />
+                        </StackPanel>
+                        <ToggleSwitch HorizontalAlignment="Right" IsOn="{Binding AutoReleaseOnReconnect, Mode=TwoWay}" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="权限" Style="{StaticResource SectionHeaderStyle}" Margin="0,4,0,0" />
+            <Border Style="{StaticResource SettingsCardStyle}">
+                <StackPanel Spacing="10">
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="{Binding PermissionLabel}" FontSize="13" />
+                            <TextBlock Text="设备级接管需要管理员权限；每次接管都只影响明确选中的设备。" Style="{StaticResource CaptionStyle}" />
+                        </StackPanel>
+                        <Button HorizontalAlignment="Right" Content="以管理员身份重启" Click="Elevate_Click"
+                                Visibility="{Binding AdminVisibility}" />
+                    </Grid>
+                    <TextBlock Text="以管理员身份重启后，可分别禁用指定的鼠标或键盘；程序退出时会自动恢复设备。"
+                               Style="{StaticResource CaptionStyle}" TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="外观" Style="{StaticResource SectionHeaderStyle}" Margin="0,4,0,0" />
+            <Border Style="{StaticResource SettingsCardStyle}">
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="应用主题" FontSize="13" />
+                        <TextBlock Text="跟随 Windows 或手动选择深色 / 浅色" Style="{StaticResource CaptionStyle}" />
+                    </StackPanel>
+                    <ComboBox x:Name="ThemeCombo" Width="150" HorizontalAlignment="Right" SelectionChanged="Theme_SelectionChanged">
+                        <ComboBoxItem Content="跟随系统" Tag="System" />
+                        <ComboBoxItem Content="深色" Tag="Dark" />
+                        <ComboBoxItem Content="浅色" Tag="Light" />
+                    </ComboBox>
+                </Grid>
+            </Border>
+
+            <TextBlock Text="数据" Style="{StaticResource SectionHeaderStyle}" Margin="0,4,0,0" />
+            <Border Style="{StaticResource SettingsCardStyle}">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="{Binding DataDirectory}" FontFamily="Cascadia Mono" FontSize="11"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button Content="打开数据目录" Click="OpenData_Click" />
+                        <Button Content="恢复默认设置" Click="Reset_Click" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="关于" Style="{StaticResource SectionHeaderStyle}" Margin="0,4,0,0" />
+            <Border Style="{StaticResource SettingsCardStyle}">
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Width="36" Height="36" CornerRadius="8" Background="{ThemeResource AccentFillColorDefaultBrush}">
+                        <FontIcon Glyph="&#xE962;" FontFamily="Segoe Fluent Icons" FontSize="17" Foreground="White" />
+                    </Border>
+                    <StackPanel Grid.Column="1" Spacing="2">
+                        <TextBlock Text="鼠标卫士" FontSize="14" />
+                        <TextBlock Text="原生 WinUI 3 · 输入设备控制台" Style="{StaticResource CaptionStyle}" />
+                        <TextBlock Text="版本 2.0.0 · 无驱动 · 无网络请求" Style="{StaticResource CaptionStyle}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

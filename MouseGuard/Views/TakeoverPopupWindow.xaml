@@ -1,0 +1,101 @@
+<Window x:Class="MouseGuard.Views.TakeoverPopupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="鼠标已被接管"
+        Width="440" SizeToContent="Height"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="NoResize" ShowInTaskbar="False" ShowActivated="False" Topmost="True"
+        WindowStartupLocation="Manual" Opacity="0">
+    <Border x:Name="Card" Margin="0" CornerRadius="22" Background="{DynamicResource PopupGradientBrush}">
+        <Grid>
+            <!-- Acrylic/Mica tint above the blurred desktop snapshot -->
+            <Border CornerRadius="22" IsHitTestVisible="False">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#F2121A27" Offset="0" />
+                        <GradientStop Color="#F80B1019" Offset="0.55" />
+                        <GradientStop Color="#FC090D14" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            <Border CornerRadius="22" IsHitTestVisible="False">
+                <Border.Background>
+                    <RadialGradientBrush Center="0.12,0.02" GradientOrigin="0.12,0.02" RadiusX="0.8" RadiusY="0.9">
+                        <GradientStop Color="#25FFFFFF" Offset="0" />
+                        <GradientStop Color="#00FFFFFF" Offset="1" />
+                    </RadialGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Margin="26,22,26,21">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Width="62" Height="62" VerticalAlignment="Top">
+                        <Border CornerRadius="18" Background="#2A3346" BorderBrush="#26FFFFFF" BorderThickness="1">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="18" ShadowDepth="4" Opacity="0.32" Color="#05070C" />
+                            </Border.Effect>
+                        </Border>
+                        <TextBlock x:Name="DeviceGlyph" Text="&#xE962;" FontFamily="{StaticResource IconFontFamily}"
+                                   FontSize="28" Foreground="#EAF0FF" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <Border x:Name="LockBadge" Width="23" Height="23" CornerRadius="8" Background="{DynamicResource AccentGradientBrush}"
+                                HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,-5,-5"
+                                BorderBrush="#33202A45" BorderThickness="2">
+                            <TextBlock Text="&#xE72E;" FontFamily="{StaticResource IconFontFamily}" FontSize="9.5"
+                                       Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+
+                    <StackPanel Grid.Column="1" Margin="16,0,0,0">
+                        <TextBlock x:Name="KickerText" Text="控制权变更"
+                                   FontSize="9.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextBrush}"
+                                   VerticalAlignment="Center" />
+                        <TextBlock x:Name="TitleText" Text="鼠标已被接管" FontFamily="{StaticResource DisplayFontFamily}"
+                                   FontSize="27" FontWeight="SemiBold" Foreground="#F8FAFF" Margin="0,6,0,0" TextWrapping="Wrap" />
+                        <TextBlock x:Name="MessageText" Text="此设备的鼠标控制权已由管理员接管"
+                                   FontSize="12.5" LineHeight="20" TextWrapping="Wrap" Foreground="#B9C4D5" Margin="0,6,0,0" />
+                        <Border x:Name="DeviceChip" Style="{StaticResource PillBorderStyle}" Background="#26FFFFFF"
+                                HorizontalAlignment="Left" Margin="0,12,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Ellipse x:Name="DeviceDot" Width="5" Height="5" Fill="{DynamicResource AccentBrush}" VerticalAlignment="Center" />
+                                <TextBlock x:Name="DeviceNameText" Text="所有已连接的鼠标" FontSize="10.5"
+                                           Foreground="#D4DDEA" Margin="7,0,0,0" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="26,0,26,16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Height="3" VerticalAlignment="Center">
+                        <Border Background="#22FFFFFF" CornerRadius="2" />
+                        <Border x:Name="CountdownBar" Background="{DynamicResource AccentGradientBrush}" CornerRadius="2"
+                                HorizontalAlignment="Stretch" RenderTransformOrigin="0,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="CountdownScale" ScaleX="1" />
+                            </Border.RenderTransform>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="1" Margin="0,12,0,0">
+                        <TextBlock x:Name="FooterBrandText" Text="鼠标卫士" FontSize="9.5" Foreground="#8996A9"
+                                   Visibility="Collapsed" />
+                        <TextBlock x:Name="DismissText" Text="单击任意位置关闭" FontSize="9.5" Foreground="#93A0B3"
+                                   HorizontalAlignment="Right" />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

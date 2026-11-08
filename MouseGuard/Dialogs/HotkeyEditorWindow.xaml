@@ -1,0 +1,112 @@
+<Window x:Class="MouseGuard.Dialogs.HotkeyEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="快捷键"
+        Width="600" Height="690"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
+    <Border Margin="22" CornerRadius="20" Background="{DynamicResource AppBackgroundBrush}"
+            BorderBrush="{DynamicResource StrokeStrongBrush}" BorderThickness="1">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="36" ShadowDepth="12" Direction="270" Opacity="0.45" Color="#05070C" />
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="58" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="72" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" x:Name="Header" Background="Transparent" MouseLeftButtonDown="Header_MouseLeftButtonDown">
+                <StackPanel Orientation="Horizontal" Margin="22,0,0,0" VerticalAlignment="Center">
+                    <Border Width="28" Height="28" CornerRadius="9" Background="{DynamicResource AccentGradientBrush}">
+                        <TextBlock Text="&#xE765;" FontFamily="{StaticResource IconFontFamily}" FontSize="12"
+                                   Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <TextBlock x:Name="HeaderTitle" Text="新建快捷键" FontSize="15" FontWeight="SemiBold" Margin="10,0,0,0" VerticalAlignment="Center" />
+                </StackPanel>
+                <Button Style="{StaticResource WindowCaptionButtonStyle}" HorizontalAlignment="Right"
+                        Margin="0,0,10,0" VerticalAlignment="Center" Click="Cancel_Click" ToolTip="关闭">
+                    <Path Width="10" Height="10" Data="M1,1 L9,9 M9,1 L1,9" Stroke="{DynamicResource TextSecondaryBrush}"
+                          StrokeThickness="1.1" StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+                </Button>
+            </Grid>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Margin="24,2,24,12">
+                    <TextBlock Text="名称" FontSize="11.5" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
+                    <TextBox x:Name="NameBox" Style="{StaticResource FluentTextBoxStyle}" MaxLength="32" />
+
+                    <TextBlock Text="动作" FontSize="11.5" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,15,0,6" />
+                    <ComboBox x:Name="ActionSelector" Style="{StaticResource FluentComboBoxStyle}"
+                              DisplayMemberPath="Name" SelectionChanged="ActionSelector_SelectionChanged" />
+                    <TextBlock x:Name="ActionDescription" Style="{StaticResource CaptionTextStyle}" Margin="2,6,0,0" TextWrapping="Wrap" />
+
+                    <Grid x:Name="TargetPanel" Margin="0,15,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="目标设备" FontSize="11.5" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
+                            <ComboBox x:Name="TargetSelector" Style="{StaticResource FluentComboBoxStyle}" DisplayMemberPath="DisplayName" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="来源设备（可选）" FontSize="11.5" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
+                            <ComboBox x:Name="SourceSelector" Style="{StaticResource FluentComboBoxStyle}" DisplayMemberPath="DisplayName" />
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock Text="触发组合" FontSize="11.5" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,16,0,6" />
+                    <Border x:Name="CaptureBox" Background="{DynamicResource InputBackgroundBrush}" BorderBrush="{DynamicResource StrokeStrongBrush}"
+                            BorderThickness="1" CornerRadius="11" Padding="16,14" Cursor="Hand" Focusable="True"
+                            MouseLeftButtonDown="CaptureBox_MouseLeftButtonDown" GotKeyboardFocus="CaptureBox_GotKeyboardFocus"
+                            LostKeyboardFocus="CaptureBox_LostKeyboardFocus">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="32" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="CaptureGlyph" Text="&#xE765;" FontFamily="{StaticResource IconFontFamily}" FontSize="16"
+                                       Foreground="{DynamicResource AccentTextBrush}" VerticalAlignment="Center" />
+                            <StackPanel Grid.Column="1">
+                                <TextBlock x:Name="CaptureText" Text="点击这里，然后按下组合键" FontSize="13" FontWeight="SemiBold" />
+                                <TextBlock x:Name="CaptureHint" Text="支持 Ctrl / Alt / Shift / Win 与字母、数字、功能键或鼠标侧键"
+                                           Style="{StaticResource CaptionTextStyle}" Margin="0,3,0,0" TextWrapping="Wrap" />
+                            </StackPanel>
+                            <TextBlock Grid.Column="2" x:Name="CaptureState" Text="录制" FontSize="10"
+                                       Foreground="{DynamicResource TextTertiaryBrush}" VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+
+                    <TextBlock x:Name="ValidationText" FontSize="11" Foreground="{DynamicResource DangerBrush}"
+                               Margin="2,8,0,0" TextWrapping="Wrap" Visibility="Collapsed" />
+
+                    <Border CornerRadius="10" Background="{DynamicResource AccentSoftBrush}" Padding="12,10" Margin="0,16,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE946;" FontFamily="{StaticResource IconFontFamily}" FontSize="12"
+                                       Foreground="{DynamicResource AccentTextBrush}" VerticalAlignment="Top" Margin="0,1,0,0" />
+                            <TextBlock Text="建议使用 Ctrl / Alt 加一个不常用字母，避免与系统或其他程序冲突。快捷键在任意应用中生效。"
+                                       Style="{StaticResource CaptionTextStyle}" Margin="8,0,0,0" TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+
+            <Border Grid.Row="2" BorderBrush="{DynamicResource DividerBrush}" BorderThickness="0,1,0,0">
+                <Grid Margin="24,0">
+                    <TextBlock Text="设备感知快捷键只会响应来自指定来源设备的操作" Style="{StaticResource CaptionTextStyle}"
+                               VerticalAlignment="Center" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Content="取消"
+                                Click="Cancel_Click" Height="36" MinWidth="74" />
+                        <Button Style="{StaticResource PrimaryButtonStyle}" Content="保存快捷键" Click="Save_Click"
+                                Height="36" MinWidth="104" Margin="8,0,0,0" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>
